@@ -27,13 +27,8 @@ h1{
     text-align: center;
 }
 
-#topic-btn {
-    display: flex;
-    position: relative;  
-}
-
 .style{
-    display: absolute;
+    
     align-content: center;
     width: 200px;
     height: 200px;
