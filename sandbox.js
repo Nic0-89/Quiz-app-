@@ -75,24 +75,45 @@ const topicTwo = [
         ]
     }
 ]
+
+// How to direct user to the question
+let topicOneBtn= document.querySelector("#btn-1")
+let topictwoBtn= document.querySelector("#btn-2")
+topicOneBtn.addEventListener('click', function(){
+     alert('option one press')
+ });
+ topictwoBtn.addEventListener('click', function(){
+    alert('option two press')
+});
+
+
 let questionAsked = document.getElementById('question');
 let answerChose = document.getElementById('answer-buttons');
 let nextButton = document.getElementsByClassName('btn-next');
 
+// to save the score of the player
+let userScore = 0;
 
-function startQuestion() {
+
+function startTrivia() {
     Pass
+    
 }
 
 function displayQuestion() {
-    Pass
+    pass
 }
 
-function resetQuiz() {
-    Pass
-}
+
 
 function answerSelected(){
     pass
 }
 
+function showPoints(){
+    pass
+}
+
+function resetTrivia() {
+    pass
+}

@@ -8,8 +8,49 @@
 body{
     background-color: #40e0d0;
 }
+/* #first-page{
+    display: none;
+} */
+.main-div{
+    padding: 20px;
+    color: #e97451;
+    text-align: center;
+}
+
+h1{
+    margin-top: 20px;
+    font-size: 30px;
+    font-family: 'Press Start 2P', cursive;
+    color: #e97451;
+    border-bottom: 2px solid #b9b1b1;
+    padding-bottom: 30px;
+    text-align: center;
+}
+
+#topic-btn {
+    display: flex;
+    position: relative;  
+}
+
+.style{
+    display: absolute;
+    align-content: center;
+    width: 200px;
+    height: 200px;
+    margin: 40px 40px;
+    border-radius: 100px;
+    font-size: 30px;
+    cursor: pointer;
+    background-color: #075d5f;
+    color: #fff;
+}
+.style:hover{
+    background: #3b3434;
+    color: #ff7f50;
+}
 
 .app{
+    
     background-color: 	#b3ecec;
     width: 90%;
     max-width: 600px;
