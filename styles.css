@@ -89,9 +89,13 @@ cursor: pointer;
 transition: all 0.5s;
 }
 
-.button:hover{
+.button:hover:not([disabled]){
     background: #3b3434;
     color: #ff7f50;
+}
+
+.btn:disabled{
+    cursor: : no-drop;
 }
 
 .btn-next{
@@ -108,4 +112,10 @@ display: none;
 .btn-next:hover{
     background-color: #ff7f50;
     color: #fff;
+}
+.correct{
+    background: #9aeabc;
+}
+.incorrect{
+    background: #ea9a9a;
 }
