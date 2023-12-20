@@ -70,15 +70,14 @@ let womenclicked = false
 let userScore = 0;
 let questionIndex = 0;
 let questions = []
-// let womenIndex = 0;
 
 //this part is new Nico
 geo.addEventListener('click', function () {
     geoclicked = true
+    questions = geography
     if (geoclicked) {
         questionIndex = 0;
         userScore = 0;
-        questions = geography
         nextButton.style.display = "block";
         mainDiv.style.display = 'none';
         document.querySelector("#app").style.display = 'block';
@@ -87,11 +86,11 @@ geo.addEventListener('click', function () {
 });
 women.addEventListener('click', function () {
     womenclicked = true
+    questions = womenInHistory
     if (womenclicked) {
         questionIndex = 0;
         userScore = 0;
         nextButton.style.display = "block";
-        questions = womenInHistory
         mainDiv.style.display = 'none';
         document.querySelector("#app").style.display = 'block';
         showQuestion();
@@ -108,7 +107,8 @@ function startTrivia() {
     questionIndex = 0;
     userScore = 0;
     questions = []
-    nextButton.style.display = "none";
+    nextButton.style.display = "block";
+    nextButton.innerHTML = 'Next';
     mainDiv.style.display = 'block';
     document.querySelector("#app").style.display = 'none';
 }
@@ -120,13 +120,13 @@ function showQuestion() {
         let questionNo = questionIndex + 1;
         questionAsked.innerHTML = questionNo + '.' + currentQuestion.question;
 
-        currentQuestion.answers.forEach(answers => {
+        currentQuestion.answers.forEach(answer => {
             let button = document.createElement("button");
-            button.innerHTML = answers.text;
-            button.classList.add('button');
+            button.innerHTML = answer.text;
+            button.classList.add("button");
             answerChose.appendChild(button);
-            if (answers.correct) {
-                button.dataset.correct = answers.correct;
+            if (answer.correct) {
+                button.dataset.correct = answer.correct;
             }
             button.addEventListener('click', selectAnswer)
         })
@@ -136,13 +136,13 @@ function showQuestion() {
         let questionNo = questionIndex + 1;
         questionAsked.innerHTML = questionNo + '.' + currentQuestion.question;
 
-        currentQuestion.answers.forEach(answers => {
+        currentQuestion.answers.forEach(answer => {
             let button = document.createElement("button");
-            button.innerHTML = answers.text;
+            button.innerHTML = answer.text;
             button.classList.add('button');
             answerChose.appendChild(button);
-            if (answers.correct) {
-                button.dataset.correct = answers.correct;
+            if (answer.correct) {
+                button.dataset.correct = answer.correct;
             }
             button.addEventListener('click', selectAnswer)
         })
@@ -232,14 +232,14 @@ function handleNextButton() {
 
 nextButton.addEventListener("click", () => {
     if (womenclicked) {
-        // questionIndex++;
+
         if (questionIndex < womenInHistory.length) {
             handleNextButton();
         } else {
             startTrivia();
         }
     } else if (geoclicked) {
-        // questionIndex++;
+
         if (questionIndex < geography.length) {
             handleNextButton();
         } else {
