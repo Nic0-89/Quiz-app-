@@ -56,7 +56,7 @@ const womenInHistory = [ //change to women in history??
             { text: 'Josephine Baker', correct: false },
         ]
     },
-   
+
 ]
 // How to direct user to the question
 let geo = document.querySelector("#btn-1")
@@ -127,11 +127,31 @@ function showQuestion() {
             }
             button.addEventListener('click', selectAnswer)
         })
+    } else if (geoclicked) {
+        let currentQuestion = geography[questionIndex];
+        let questionNo = questionIndex + 1;
+        questionAsked.innerHTML = questionNo + '.' + currentQuestion.question;
+
+        currentQuestion.answers.forEach(answers => {
+            let button = document.createElement("button");
+            button.innerHTML = answers.text;
+            button.classList.add('button');
+            answerChose.appendChild(button);
+            if (answers.correct) {
+                button.dataset.correct = answers.correct;
+            }
+            button.addEventListener('click', selectAnswer)
+        })
     }
 }
 
 function resetState() {
     if (womenclicked) {
+        nextButton.style.display = "none";
+        while (answerChose.firstChild) {
+            answerChose.removeChild(answerChose.firstChild);
+        }
+    } else if (geoclicked) {
         nextButton.style.display = "none";
         while (answerChose.firstChild) {
             answerChose.removeChild(answerChose.firstChild);
@@ -156,6 +176,22 @@ function selectAnswer(e) {
             button.disabled = true;
         });
         nextButton.style.display = "block";
+    } else if (geoclicked) {
+        const selectedBtn = e.target;
+        const isCorrect = selectedBtn.dataset.correct === "true";
+        if (isCorrect) {
+            selectedBtn.classList.add("correct");
+            userScore++;
+        } else {
+            selectedBtn.classList.add("incorrect");
+        }
+        Array.from(answerChose.children).forEach(button => {
+            if (button.dataset.correct === "true") {
+                button.classList.add("correct");
+            }
+            button.disabled = true;
+        });
+        nextButton.style.display = "block";
     }
 }
 
@@ -163,6 +199,11 @@ function showScore() {
     if (womenclicked) {
         resetState();
         questionAsked.innerHTML = `You scored ${userScore} out of ${womenInHistory.length}!`;
+        nextButton.innerHTML = 'Play Again';
+        nextButton.style.display = 'block';
+    } else if (geoclicked) {
+        resetState();
+        questionAsked.innerHTML = `You scored ${userScore} out of ${geography.length}!`;
         nextButton.innerHTML = 'Play Again';
         nextButton.style.display = 'block';
     }
@@ -175,19 +216,30 @@ function handleNextButton() {
         } else {
             showScore();
         }
+    } else if (geoclicked) {
+        questionIndex++;
+        if (questionIndex < geography.length) {
+            showQuestion();
+        } else {
+            showScore();
+        }
     }
 }
 
 nextButton.addEventListener("click", () => {
     if (womenclicked) {
         // questionIndex++;
-        console.log(questionIndex)
-        console.log(womenInHistory.length)
-        console.log(questionIndex < womenInHistory.length)
         if (questionIndex < womenInHistory.length) {
             handleNextButton();
         } else {
             startTrivia();
         }
+    } else if (geoclicked) {
+        // questionIndex++;
+        if (questionIndex < geography.length) {
+            handleNextButton();
+        } else {
+            startTrivia();
+        }
     }
-});
+})
