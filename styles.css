@@ -8,13 +8,16 @@
 body{
     background-color: #40e0d0;
 }
-/* #first-page{
-    display: none;
-} */
+/* When the button is clicked. change the display to none to make it dissapear */
+ #first-page{
+    display: block;
+}
 .main-div{
+  
     padding: 20px;
     color: #e97451;
     text-align: center;
+
 }
 
 h1{
@@ -34,7 +37,7 @@ h1{
     height: 200px;
     margin: 40px 40px;
     border-radius: 100px;
-    font-size: 30px;
+    font-size: 20px;
     cursor: pointer;
     background-color: #075d5f;
     color: #fff;
@@ -44,8 +47,8 @@ h1{
     color: #ff7f50;
 }
 
-.app{
-    
+#app{
+    display: none;
     background-color: 	#b3ecec;
     width: 90%;
     max-width: 600px;
@@ -94,7 +97,7 @@ transition: all 0.5s;
     color: #ff7f50;
 }
 
-.btn-next{
+#btn-next{
 background-color:#d4ece9 ;
 font-weight: 500;
 font-size: 20px;
@@ -105,7 +108,15 @@ border-radius: 10px;
 cursor: pointer;
 display: none;
 }
-.btn-next:hover{
+#btn-next:hover{
     background-color: #ff7f50;
     color: #fff;
+}
+
+.correct{
+    background-color: #8ded99;
+}
+
+.incorrect {
+    background-color: #ef7e76;
 }
