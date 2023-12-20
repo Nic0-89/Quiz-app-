@@ -78,6 +78,7 @@ geo.addEventListener('click', function () {
     if (geoclicked) {
         questionIndex = 0;
         userScore = 0;
+        questions = geography
         nextButton.style.display = "block";
         mainDiv.style.display = 'none';
         document.querySelector("#app").style.display = 'block';
@@ -90,6 +91,7 @@ women.addEventListener('click', function () {
         questionIndex = 0;
         userScore = 0;
         nextButton.style.display = "block";
+        questions = womenInHistory
         mainDiv.style.display = 'none';
         document.querySelector("#app").style.display = 'block';
         showQuestion();
@@ -105,6 +107,7 @@ let nextButton = document.getElementById('btn-next');
 function startTrivia() {
     questionIndex = 0;
     userScore = 0;
+    questions = []
     nextButton.style.display = "none";
     mainDiv.style.display = 'block';
     document.querySelector("#app").style.display = 'none';
@@ -113,7 +116,7 @@ function startTrivia() {
 function showQuestion() {
     resetState()
     if (womenclicked) {
-        let currentQuestion = womenInHistory[questionIndex];
+        let currentQuestion = questions[questionIndex];
         let questionNo = questionIndex + 1;
         questionAsked.innerHTML = questionNo + '.' + currentQuestion.question;
 
@@ -127,8 +130,9 @@ function showQuestion() {
             }
             button.addEventListener('click', selectAnswer)
         })
-    } else if (geoclicked) {
-        let currentQuestion = geography[questionIndex];
+    }
+    if (geoclicked) {
+        let currentQuestion = questions[questionIndex];
         let questionNo = questionIndex + 1;
         questionAsked.innerHTML = questionNo + '.' + currentQuestion.question;
 
