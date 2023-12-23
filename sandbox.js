@@ -75,26 +75,22 @@ let questions = []
 geo.addEventListener('click', function () {
     geoclicked = true
     questions = geography
-    if (geoclicked) {
-        questionIndex = 0;
-        userScore = 0;
-        nextButton.style.display = "block";
-        mainDiv.style.display = 'none';
-        document.querySelector("#app").style.display = 'block';
-        showQuestion();
-    }
+    questionIndex = 0;
+    userScore = 0;
+    nextButton.style.display = "block";
+    mainDiv.style.display = 'none';
+    document.querySelector("#app").style.display = 'block';
+    showQuestion();
 });
 women.addEventListener('click', function () {
     womenclicked = true
     questions = womenInHistory
-    if (womenclicked) {
-        questionIndex = 0;
-        userScore = 0;
-        nextButton.style.display = "block";
-        mainDiv.style.display = 'none';
-        document.querySelector("#app").style.display = 'block';
-        showQuestion();
-    }
+    questionIndex = 0;
+    userScore = 0;
+    nextButton.style.display = "block";
+    mainDiv.style.display = 'none';
+    document.querySelector("#app").style.display = 'block';
+    showQuestion();
 });
 
 //variables for the main Question, answer button and next button
@@ -111,139 +107,72 @@ function startTrivia() {
     nextButton.innerHTML = 'Next';
     mainDiv.style.display = 'block';
     document.querySelector("#app").style.display = 'none';
+    showQuestion()
 }
 
 function showQuestion() {
     resetState()
-    if (womenclicked) {
-        let currentQuestion = questions[questionIndex];
-        let questionNo = questionIndex + 1;
-        questionAsked.innerHTML = questionNo + '.' + currentQuestion.question;
+    let currentQuestion = questions[questionIndex];
+    let questionNo = questionIndex + 1;
+    questionAsked.innerHTML = questionNo + '.' + currentQuestion.question;
 
-        currentQuestion.answers.forEach(answer => {
-            let button = document.createElement("button");
-            button.innerHTML = answer.text;
-            button.classList.add("button");
-            answerChose.appendChild(button);
-            if (answer.correct) {
-                button.dataset.correct = answer.correct;
-            }
-            button.addEventListener('click', selectAnswer)
-        })
-    }
-    if (geoclicked) {
-        let currentQuestion = questions[questionIndex];
-        let questionNo = questionIndex + 1;
-        questionAsked.innerHTML = questionNo + '.' + currentQuestion.question;
-
-        currentQuestion.answers.forEach(answer => {
-            let button = document.createElement("button");
-            button.innerHTML = answer.text;
-            button.classList.add('button');
-            answerChose.appendChild(button);
-            if (answer.correct) {
-                button.dataset.correct = answer.correct;
-            }
-            button.addEventListener('click', selectAnswer)
-        })
-    }
+    currentQuestion.answers.forEach(answer => {
+        let button = document.createElement("button");
+        button.innerHTML = answer.text;
+        button.classList.add("button");
+        answerChose.appendChild(button);
+        if (answer.correct) {
+            button.dataset.correct = answer.correct;
+        }
+        button.addEventListener('click', selectAnswer)
+    })
 }
 
+
 function resetState() {
-    if (womenclicked) {
-        nextButton.style.display = "none";
-        while (answerChose.firstChild) {
-            answerChose.removeChild(answerChose.firstChild);
-        }
-    } else if (geoclicked) {
-        nextButton.style.display = "none";
-        while (answerChose.firstChild) {
-            answerChose.removeChild(answerChose.firstChild);
-        }
+    nextButton.style.display = "none";
+    while (answerChose.firstChild) {
+        answerChose.removeChild(answerChose.firstChild);
     }
 }
 
 function selectAnswer(e) {
-    if (womenclicked) {
-        const selectedBtn = e.target;
-        const isCorrect = selectedBtn.dataset.correct === "true";
-        if (isCorrect) {
-            selectedBtn.classList.add("correct");
-            userScore++;
-        } else {
-            selectedBtn.classList.add("incorrect");
-        }
-        Array.from(answerChose.children).forEach(button => {
-            if (button.dataset.correct === "true") {
-                button.classList.add("correct");
-            }
-            button.disabled = true;
-        });
-        nextButton.style.display = "block";
-    } else if (geoclicked) {
-        const selectedBtn = e.target;
-        const isCorrect = selectedBtn.dataset.correct === "true";
-        if (isCorrect) {
-            selectedBtn.classList.add("correct");
-            userScore++;
-        } else {
-            selectedBtn.classList.add("incorrect");
-        }
-        Array.from(answerChose.children).forEach(button => {
-            if (button.dataset.correct === "true") {
-                button.classList.add("correct");
-            }
-            button.disabled = true;
-        });
-        nextButton.style.display = "block";
+    const selectedBtn = e.target;
+    const isCorrect = selectedBtn.dataset.correct === "true";
+    if (isCorrect) {
+        selectedBtn.classList.add("correct");
+        userScore++;
+    } else {
+        selectedBtn.classList.add("incorrect");
     }
+    Array.from(answerChose.children).forEach(button => {
+        if (button.dataset.correct === "true") {
+            button.classList.add("correct");
+        }
+        button.disabled = true;
+    });
+    nextButton.style.display = "block";
 }
 
 function showScore() {
-    if (womenclicked) {
-        resetState();
-        questionAsked.innerHTML = `You scored ${userScore} out of ${womenInHistory.length}!`;
-        nextButton.innerHTML = 'Play Again';
-        nextButton.style.display = 'block';
-    } else if (geoclicked) {
-        resetState();
-        questionAsked.innerHTML = `You scored ${userScore} out of ${geography.length}!`;
-        nextButton.innerHTML = 'Play Again';
-        nextButton.style.display = 'block';
-    }
+    resetState();
+    questionAsked.innerHTML = `You scored ${userScore} out of ${questions.length}!`;
+    nextButton.innerHTML = 'Play Again';
+    nextButton.style.display = 'block';
 }
 function handleNextButton() {
-    if (womenclicked) {
-        questionIndex++;
-        if (questionIndex < womenInHistory.length) {
-            showQuestion();
-        } else {
-            showScore();
-        }
-    } else if (geoclicked) {
-        questionIndex++;
-        if (questionIndex < geography.length) {
-            showQuestion();
-        } else {
-            showScore();
-        }
+    questionIndex++;
+    if (questionIndex < questions.length) {
+        showQuestion();
+    } else {
+        showScore();
     }
 }
 
 nextButton.addEventListener("click", () => {
-    if (womenclicked) {
-
-        if (questionIndex < womenInHistory.length) {
-            handleNextButton();
-        } else {
-            startTrivia();
-        }
-    } else if (geoclicked) {
-
-        if (questionIndex < geography.length) {
-            handleNextButton();
-        } else {
-            startTrivia();
-        }
+    if (questionIndex < questions.length) {
+        handleNextButton();
+    } else {
+        startTrivia();
     }
 })
